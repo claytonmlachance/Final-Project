@@ -31,7 +31,7 @@ int main()
     string filename;
 
     // Open the dictionary file.
-    ifstream dictFile("words");
+    ifstream dictFile("Spellchecker/words");
     if (!dictFile)
     {
         cout << "Error: Could not open dictionary file 'words'." << endl;
