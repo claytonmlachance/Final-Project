@@ -22,4 +22,4 @@ jobs:
         run: g++ -std=c++17 -O2 Spellchecker/SpellCheck.cpp -o spellcheck
 
       - name: Run spell checker on test file
-        run: echo test.txt | ./spellcheck
+        run: echo Spellchecker/test.txt | ./spellcheck
