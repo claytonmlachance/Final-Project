@@ -1,0 +1,25 @@
+name: Spell Check
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install build tools
+        run: sudo apt-get update && sudo apt-get install -y g++
+
+      - name: Compile SpellCheck
+        run: g++ -std=c++17 -O2 SpellCheck.cpp -o spellcheck
+
+      - name: Run spell checker on test file
+        run: echo test.txt | ./spellcheck
