@@ -19,7 +19,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y g++
 
       - name: Compile SpellCheck
-        run: g++ -std=c++17 -O2 Spellchecker\SpellCheck.cpp -o spellcheck
+        run: g++ -std=c++17 -O2 Spellchecker/SpellCheck.cpp -o spellcheck
 
       - name: Run spell checker on test file
         run: echo test.txt | ./spellcheck
