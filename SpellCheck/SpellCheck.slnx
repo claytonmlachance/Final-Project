@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="SpellCheck/SpellCheck.vcxproj" Id="ec93d2c8-6178-48c5-90db-9fcbe802d685" />
+</Solution>
