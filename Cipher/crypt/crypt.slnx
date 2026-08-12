@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="crypt.vcxproj" />
+  <Project Path="crypt.vcxproj" Id="35e30b5b-afba-42e5-abd6-a89709bf6554" />
 </Solution>
