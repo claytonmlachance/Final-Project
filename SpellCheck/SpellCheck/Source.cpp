@@ -41,8 +41,8 @@ string openFileDialog()
 
     if (GetOpenFileNameW(&ofn))
     {
-        // Convert wchar_t* to std::string
-        std::wstring ws(fileName);
+        // Convert wchar_t* to string
+        wstring ws(fileName);
         return std::string(ws.begin(), ws.end());
     }
     else
