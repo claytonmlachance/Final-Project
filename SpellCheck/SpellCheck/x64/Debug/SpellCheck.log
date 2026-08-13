@@ -3,7 +3,7 @@ C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\
   (compiling source file 'Source.cpp')
       C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(5094,18):
       the template instantiation context (the oldest one first) is
-          C:\Users\Admin\Documents\GitHub\Final Project\SpellCheck\SpellCheck\Source.cpp(46,27):
+          C:\Users\Admin\Documents\GitHub\Final Project\SpellCheck\SpellCheck\Source.cpp(86,27):
           see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' being compiled
           with
           [
@@ -11,7 +11,7 @@ C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\
               _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
               _Alloc=std::allocator<char>
           ]
-              C:\Users\Admin\Documents\GitHub\Final Project\SpellCheck\SpellCheck\Source.cpp(46,9):
+              C:\Users\Admin\Documents\GitHub\Final Project\SpellCheck\SpellCheck\Source.cpp(86,9):
               see the first reference to 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string' in 'openFileDialog'
           C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xstring(862,17):
           see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct_from_iter<wchar_t*,wchar_t*,_Size_type>(_Iter,const _Sent,_Size)' being compiled
