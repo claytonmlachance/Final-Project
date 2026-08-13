@@ -14,6 +14,10 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <sstream>
+#include <cctype>
+
 
 using namespace std;
 
@@ -36,7 +40,7 @@ void buildCipher(string key, char cipher[]) {
 
 		if (!duplicate) {
 			//build letter into cipher if not a duplicate letter
-			cipher[cipherindex] = key[i];
+			cipher[cipherindex] = tolower(key[i]);
 			cipherindex++;
 
 		}
@@ -47,29 +51,179 @@ void buildCipher(string key, char cipher[]) {
 	}
 
 	//fill the rest of the array with a backwards alphabet
-	int remainingletters = 26 - cipherindex;
-	for (int k=0;k < remainingletters;k++) {
-		cipher[cipherindex] = backwardAlph[k];
-		cipherindex++;
-	}
+	int alphacount = 0;
+	duplicate = false;
+	while (cipherindex < 26) {
+		for (int c = 0;c < cipherindex;c++) {
+			if (backwardAlph[alphacount] == cipher[c]) { //this letter is already in the cipher from the keyword
+				duplicate = true;
+				break;//move on to next letter
+			}
+		}
+
+		if (!duplicate) {
+			cipher[cipherindex] = backwardAlph[alphacount];
+			cipherindex++;
+			alphacount++;
+		}
+		else {
+			duplicate = false;
+			alphacount++;
+		}
+	
 		
+	}
+			
 }
 
-int main() {
+
+
+void Encrypt(char alphabet[], char cipher[], ifstream& in, ofstream& out) {
+	char ch;
+	bool foundit = false;
+	bool upper = false;
+
+
+
+	while (in.get(ch)) {
+		if (isupper(ch)) {//check if incoming char is an upper case letter
+			upper = true;//remember this should be an upper case letter
+			ch = tolower(ch);//set it to be lower case so it will match the arrays
+		}
+		for (int i = 0;i < 26;i++) {
+			if (ch == alphabet[i]) {//look for match in the alphabet array
+				//letter from input file matched in alphabet array
+				if (upper) {
+					out.put(toupper(cipher[i])); //write the corresponding cipher letter to the output file as upper case
+					upper = false; //reset upper case flag
+				}
+				else {
+					out.put(cipher[i]); //write the corresponding cipher letter to the output file
+				}
+				
+				foundit = true;
+				break; //leave the for loop and move on to the next char from the input file
+			}
+			
+		}
+		if (!foundit) {
+			out.put(ch); //if after searching the entire alphbet there was no match, right write that char to output file
+		}
+		else {
+			foundit = false; //reset foundit flag for next char from the input file
+		}
+	}
+
+}
+
+void Decrypt(char alphabet[], char cipher[], ifstream& in, ofstream& out) {
+	char ch;
+	bool foundit = false;
+	bool upper = false;
+
+	while (in.get(ch)) {
+		if (isupper(ch)) {//check if incoming char is an upper case letter
+			upper = true;//remember this should be an upper case letter
+			ch = tolower(ch);//set it to be lower case so it will match the arrays
+		}
+		for (int i = 0;i < 26;i++) {
+			if (ch == cipher[i]) {//look for match in the alphabet array
+				//letter from input file matched in alphabet array
+				if (upper) {
+					out.put(toupper(alphabet[i])); //write the corresponding cipher letter to the output file as upper case
+					upper = false; //reset upper case flag
+				}
+				else {
+					out.put(alphabet[i]); //write the corresponding cipher letter to the output file
+				}
+
+				foundit = true;
+				break; //leave the for loop and move on to the next char from the input file
+			}
+
+		}
+		if (!foundit) {
+			out.put(ch); //if after searching the entire alphbet there was no match, right write that char to output file
+		}
+		else {
+			foundit = false; //reset foundit flag for next char from the input file
+		}
+	}
+
+}
+
+
+int main(int argc, char* argv[]) {
 
 	char cipher[26];
 	char alphabet[] =
 	{ 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
 	string keyword;
+	ifstream in_file;
+	ofstream out_file;
+	bool encrypting = true; //what mode is selected for the program
+	int file_count = 0; // The number of files specified
 
-	cin >> keyword;//replace with command line arguments
+	cout << "Ready to encrypt/decrypt your file.\n\n";
+	
+	for (int i = 1; i < argc; i++) // Process the command line arguments
+		{
+		string arg = argv[i]; // argument being processed
+		if (arg == "-d") {// decryption was selected
+			encrypting = false;
+		}
+		else if (arg == "-e") {// encryption was selected
+			encrypting = true;
+		}
+		else if (arg.substr(0,2) == "-k") {// keyword from command line
+			keyword = arg.substr(2);
+		}
+		else // It is a file name
+			{
+			file_count++;
+			if (file_count == 1) // The first file name
+				{
+				in_file.open(arg);
+				if (in_file.fail()) // Exit the program if opening failed
+					{
+					cout << "Error opening input file " << arg << endl;
+					return 1;
+					}
+				}
+			else if (file_count == 2) // The second file name
+				{
+				out_file.open(arg);
+				if (out_file.fail())
+					{
+					cout << "Error opening output file " << arg << endl;
+					return 1;
+					}
+				}
+			}
+		}
+			if (file_count != 2) // Exit if the user didn’t specify two files
+		{
+		cout << "Usage: " << argv[0] << " [-d] or [-e] -k[keyword] infile outfile" << endl;
+		return 1;
+		}
 
-	buildCipher(keyword, cipher);
+	if (keyword == "") {//make sure they entered a keyword to use
+		cout << "Be sure to enter a keyword using -k" << endl;
+		return 1;
+	}
 
-	//for (int g=0;g < 26;g++) {
-	//	cout << cipher[g];
-	//}
-
+	buildCipher(keyword, cipher);//build the cipher witht the supplied keyword
+	cout << "Keyword selected: " << keyword << endl;
+	if (encrypting) {
+		cout << "Encrypting file\n\n";
+		Encrypt(alphabet, cipher, in_file, out_file);//encrypt the input file to the output file
+	}
+	else {
+		cout << "Encrypting file\n\n";
+		Decrypt(alphabet, cipher, in_file, out_file);//decrypt the input file to thee output file
+	}
+	
+	cout << "Process Complete.\n";
 
 }
 
