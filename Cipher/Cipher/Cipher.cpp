@@ -11,8 +11,8 @@
 ** Then first remove duplicate letters, yielding FEATHR, and append the other letters 
 ** of the alphabet in reverse order
 **
-** Author: 	James Domkus
-** Date: 	8/10/2026
+** Author: 	James Domkus/Samantha Blissett/Clayton LaChance
+** Date: 	8/14/2026
 ** -------------------------------------------------------------------------*/
 
 #include <iostream>
@@ -20,7 +20,7 @@
 #include <fstream>
 #include <sstream>
 #include <cctype>
-#include "FileName.h"
+
 
 using namespace std;
 

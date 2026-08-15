@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "Cipher\\x64\\Debug\\Cipher.obj",
+            "outputs": [
+                "Cipher\\x64\\Debug\\Cipher.cpp.obj.dt.module.json",
+                "Cipher\\x64\\Debug\\Cipher.cpp.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

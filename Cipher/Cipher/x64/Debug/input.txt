@@ -1,0 +1,7 @@
+Hello, World!
+
+This is a short test of the cipher program.
+Does it keep spaces, punctuation, and numbers like 12345 unchanged?
+
+The quick brown fox jumps over the lazy dog.
+Testing COMPLETE!
